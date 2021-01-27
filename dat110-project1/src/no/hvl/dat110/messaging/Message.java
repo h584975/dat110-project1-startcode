@@ -1,15 +1,19 @@
 package no.hvl.dat110.messaging;
 
-import java.util.Arrays;
-
-import no.hvl.dat110.TODO;
+import java.security.InvalidParameterException;
 
 public class Message {
 
 	private byte[] payload;
 
 	public Message(byte[] payload) {
-		this.payload = payload; // TODO: check for length within boundary
+
+		if (payload.length <= 128) {
+			this.payload = payload;
+		}
+		else {
+			throw new InvalidParameterException("Payload cant be longer than 128 bytes.");
+		}
 	}
 
 	public Message() {
@@ -17,31 +21,31 @@ public class Message {
 	}
 
 	public byte[] getData() {
-		return this.payload; 
+		return this.payload;
 	}
 
 	public byte[] encapsulate() {
-		
-		byte[] encoded = null;
-		
-		// TODO
-		// encapulate/encode the payload of this message in the
-		// encoded byte array according to message format
-		
-		if (true)
-		   throw new UnsupportedOperationException(TODO.method());
 
+		byte[] encoded = new byte[128];
+		int length = payload.length;
+
+		encoded[0] = (byte) length;
+
+		for (int i = 0; i < length; i++) {
+
+			encoded[i + 1] = payload[i];
+		}
 		return encoded;
-		
 	}
 
 	public void decapsulate(byte[] received) {
 
-		// TODO
-		// decapsulate the data contained in the received byte array and store it 
-		// in the payload of this message
-		
-		throw new UnsupportedOperationException(TODO.method());
-		
+		int length = received[0];
+		payload = new byte[length];
+
+		for (int i = 0; i < length; i++) {
+
+			payload[i] = received[i + 1];
+		}
 	}
 }
