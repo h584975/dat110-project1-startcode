@@ -8,11 +8,11 @@ public class Message {
 
 	public Message(byte[] payload) {
 
-		if (payload.length <= 128) {
+		if (payload.length < 128) {
 			this.payload = payload;
 		}
 		else {
-			throw new InvalidParameterException("Payload cant be longer than 128 bytes.");
+			throw new InvalidParameterException("Payload cant be longer than 127 bytes.");
 		}
 	}
 
