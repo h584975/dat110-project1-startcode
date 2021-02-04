@@ -23,7 +23,7 @@ public class Message {
 	public byte[] getData() {
 		return this.payload;
 	}
-
+	
 	public byte[] encapsulate() {
 
 		byte[] encoded = new byte[128];

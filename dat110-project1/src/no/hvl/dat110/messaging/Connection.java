@@ -49,6 +49,7 @@ public class Connection {
 		byte[] recvbuf = new byte[128];
 		
 		try {
+			
 			inStream.read(recvbuf);
 			message.decapsulate(recvbuf);
 			
